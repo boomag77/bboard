@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <link href="{% static '/css/style.css' %}" rel="stylesheet" type="text/css"/>
+        <meta charset="UTF-8">
+        <title>Главная :: Доска объявлений</title>
+    </head>
+    <body>
+        <h5><a href="admin/">Вход</a></h5>
+        <h1>Объявления</h1>
+        <div>
+            <a href="{% url 'index' %}">Главная</a>
+            <a href="{% url 'add' %}">Добавить объявление</a>
+        
+            <!--вывод списка рубрик-->
+            {% for rubric in rubrics %}
+            <a href="{% url 'by_rubric' rubric.pk %}">{{ rubric.name }}</a>
+            {% endfor %}
+        </div>
+        <br>
+        <!--вывод всех объявлений-->
+        {% for bb in bbs %}
+        <div>
+            <h3>{{ bb.title }} - {{ bb.price }} руб.</h3>
+            <h6><em>(дата публикации: {{ bb.published|date:"d.m.Y H:i:s" }})</em></h6>
+            <p>{{ bb.content }}</p>
+            <em><p>{{ bb.contact }}</p></em>
+            <br>
+        </div>
+        {% endfor %}
+    </body>
+</html>
